@@ -12,7 +12,7 @@ public class Main {
 
     @RequestMapping(value="/xd", method= RequestMethod.GET)
     public String welcome(){
-        return "gowno";
+        return "hello Anja";
     }
 
     public static void main(String[] args) {
