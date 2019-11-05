@@ -2,6 +2,9 @@ package com.annamakos.socialcare.controller;
 
 import com.annamakos.socialcare.model.User;
 import com.annamakos.socialcare.service.UserService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,13 +20,15 @@ public class UserController {
         this.userService = userService;
     }
 
-    @RequestMapping(value = "/user", method = RequestMethod.POST)
-    public User addUser(@RequestParam String name, @RequestParam String surname){
-        return this.userService.addUser(name, surname);
-    }
-
+//    @RequestMapping(value = "/user", method = RequestMethod.POST)
+//    public User addUser(@RequestParam String name, @RequestParam String surname){
+//        return this.userService.addUser(name, surname);
+//    }
+//
+    @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "/users", method = RequestMethod.GET)
-    public List<User> showUsers(){
-        return this.userService.showUsers();
+    public ResponseEntity<List<User>> showUsers(){
+        List<User> userList =  this.userService.showUsers();
+        return new ResponseEntity<>(userList, HttpStatus.OK);
     }
 }

@@ -15,14 +15,15 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public User addUser(String name, String surname){
-        User user = new User();
-        user.setName(name);
-        user.setSurname(surname);
-        this.userRepository.save(user);
-        return user;
-    }
 
+//    public User addUser(String name, String surname){
+//        User user = new User();
+//        user.setName(name);
+//        user.setSurname(surname);
+//        this.userRepository.save(user);
+//        return user;
+//    }
+//
     public List<User> showUsers(){
         List<User> list = new ArrayList<>();
         list = this.userRepository.findAll();
