@@ -39,7 +39,7 @@ public class SignupController {
         if (userRepository.existsByEmail(signup.getEmail())) {
             return new ResponseEntity<>("Email is already used.", HttpStatus.BAD_REQUEST);
         }
-        User user = new User(signup.getUsername(), signup.getEmail(),
+        User user = new User(signup.getName(), signup.getSurname(), signup.getUsername(), signup.getEmail(),
                 passwordEncoder.encode(signup.getPassword()));
         Set<Role> roles = new HashSet<>();
         signup.getRoles().forEach(role -> {
@@ -58,6 +58,16 @@ public class SignupController {
                     Role dbaRole = roleRepository.findByName(RoleName.ROLE_DBA)
                             .orElseThrow(() -> new RuntimeException("Dba role not found."));
                     roles.add(dbaRole);
+                    break;
+                case "official":
+                    Role officialRole = roleRepository.findByName(RoleName.ROLE_OFFICIAL)
+                            .orElseThrow(() -> new RuntimeException("Official role not found."));
+                    roles.add(officialRole);
+                    break;
+                case "applicant":
+                    Role applicantRole = roleRepository.findByName(RoleName.ROLE_APPLICANT)
+                            .orElseThrow(() -> new RuntimeException("Applicant role not found."));
+                    roles.add(applicantRole);
                     break;
             }
 

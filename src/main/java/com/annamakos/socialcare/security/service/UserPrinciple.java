@@ -12,13 +12,17 @@ import java.util.stream.Collectors;
 public class UserPrinciple implements UserDetails {
 
     private long id;
+    private String name;
+    private String surname;
     private String username;
     private String email;
     private String password;
     private Collection<? extends GrantedAuthority> authorities;
 
-    public UserPrinciple(long id, String username, String email, String password, Collection<? extends GrantedAuthority> authorities) {
+    public UserPrinciple(long id, String name, String surname, String username, String email, String password, Collection<? extends GrantedAuthority> authorities) {
         this.id = id;
+        this.name = name;
+        this.surname = surname;
         this.username = username;
         this.email = email;
         this.password = password;
@@ -30,6 +34,8 @@ public class UserPrinciple implements UserDetails {
                 user.getRoles().stream().map(role -> new SimpleGrantedAuthority(role.getName().name())).collect(Collectors.toList());
         return new UserPrinciple(
                 user.getId(),
+                user.getName(),
+                user.getSurname(),
                 user.getUsername(),
                 user.getEmail(),
                 user.getPassword(),
