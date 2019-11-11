@@ -1,11 +1,13 @@
 package com.annamakos.socialcare.security.service;
 
-import com.annamakos.socialcare.model.User;
-import com.annamakos.socialcare.repository.UserRepository;
+import com.annamakos.socialcare.api.model.User;
+import com.annamakos.socialcare.api.repository.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+
+import javax.transaction.Transactional;
 
 @Service
 public class UsersDetailsService implements UserDetailsService {
@@ -14,6 +16,8 @@ public class UsersDetailsService implements UserDetailsService {
     public UsersDetailsService(UserRepository userRepository){
         this.userRepository = userRepository;
     }
+
+    @Transactional
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByUsername(username)

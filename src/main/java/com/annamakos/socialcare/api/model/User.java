@@ -1,5 +1,6 @@
-package com.annamakos.socialcare.model;
+package com.annamakos.socialcare.api.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -35,10 +36,29 @@ public class User {
     private String email;
 
     @NotBlank
+    private String pesel;
+
+    @NotBlank
+    private String street;
+
+    @NotBlank
+    private String streetNumber;
+
+    @Column
+    private String localNumber;
+
+    @NotBlank
+    private String postcode;
+
+    @NotBlank
+    private String city;
+
+    @JsonIgnore
+    @NotBlank
     @Size(min = 5)
     private String password;
 
-    @ManyToMany
+    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private Set<Role> roles;
 
     @ManyToOne
@@ -56,11 +76,17 @@ public class User {
     @OneToMany
     private List<Application> sentApplication;          // for applicant
 
-    public User(@NotBlank String name, @NotBlank String surname, @NotBlank String username, @Email String email, @NotBlank @Size(min = 5) String password) {
+    public User(@NotBlank String name, @NotBlank String surname, @NotBlank String username, @Email String email, @NotBlank String pesel, @NotBlank String street, @NotBlank String streetNumber, String localNumber, @NotBlank String postcode, @NotBlank String city, @NotBlank @Size(min = 5) String password) {
         this.name = name;
         this.surname = surname;
         this.username = username;
         this.email = email;
+        this.pesel = pesel;
+        this.street = street;
+        this.streetNumber = streetNumber;
+        this.localNumber = localNumber;
+        this.postcode = postcode;
+        this.city = city;
         this.password = password;
     }
 }

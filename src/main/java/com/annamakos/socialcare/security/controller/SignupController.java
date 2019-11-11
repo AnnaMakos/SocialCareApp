@@ -1,10 +1,10 @@
 package com.annamakos.socialcare.security.controller;
 
-import com.annamakos.socialcare.model.Role;
-import com.annamakos.socialcare.model.RoleName;
-import com.annamakos.socialcare.model.User;
-import com.annamakos.socialcare.repository.RoleRepository;
-import com.annamakos.socialcare.repository.UserRepository;
+import com.annamakos.socialcare.api.model.Role;
+import com.annamakos.socialcare.api.model.RoleName;
+import com.annamakos.socialcare.api.model.User;
+import com.annamakos.socialcare.api.repository.RoleRepository;
+import com.annamakos.socialcare.api.repository.UserRepository;
 import com.annamakos.socialcare.security.message.request.Signup;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -39,7 +39,7 @@ public class SignupController {
         if (userRepository.existsByEmail(signup.getEmail())) {
             return new ResponseEntity<>("Email is already used.", HttpStatus.BAD_REQUEST);
         }
-        User user = new User(signup.getName(), signup.getSurname(), signup.getUsername(), signup.getEmail(),
+        User user = new User(signup.getName(), signup.getSurname(), signup.getUsername(), signup.getEmail(), signup.getPesel(), signup.getStreet(), signup.getStreetNumber(), signup.getLocalNumber(), signup.getPostcode(), signup.getCity(),
                 passwordEncoder.encode(signup.getPassword()));
         Set<Role> roles = new HashSet<>();
         signup.getRoles().forEach(role -> {
@@ -53,11 +53,6 @@ public class SignupController {
                     Role userRole = roleRepository.findByName(RoleName.ROLE_USER)
                             .orElseThrow(() -> new RuntimeException("User role not found."));
                     roles.add(userRole);
-                    break;
-                case "dba":
-                    Role dbaRole = roleRepository.findByName(RoleName.ROLE_DBA)
-                            .orElseThrow(() -> new RuntimeException("Dba role not found."));
-                    roles.add(dbaRole);
                     break;
                 case "official":
                     Role officialRole = roleRepository.findByName(RoleName.ROLE_OFFICIAL)

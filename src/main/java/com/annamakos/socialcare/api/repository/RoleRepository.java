@@ -1,7 +1,7 @@
-package com.annamakos.socialcare.repository;
+package com.annamakos.socialcare.api.repository;
 
-import com.annamakos.socialcare.model.Role;
-import com.annamakos.socialcare.model.RoleName;
+import com.annamakos.socialcare.api.model.Role;
+import com.annamakos.socialcare.api.model.RoleName;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

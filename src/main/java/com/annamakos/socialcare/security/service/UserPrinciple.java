@@ -1,5 +1,5 @@
 package com.annamakos.socialcare.security.service;
-import com.annamakos.socialcare.model.User;
+import com.annamakos.socialcare.api.model.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,28 +16,48 @@ public class UserPrinciple implements UserDetails {
     private String surname;
     private String username;
     private String email;
+    private String pesel;
+    private String street;
+    private String streetNumber;
+    private String localNumber;
+    private String postcode;
+    private String city;
     private String password;
     private Collection<? extends GrantedAuthority> authorities;
 
-    public UserPrinciple(long id, String name, String surname, String username, String email, String password, Collection<? extends GrantedAuthority> authorities) {
+    public UserPrinciple(long id, String name, String surname, String username, String email, String pesel, String street, String streetNumber, String localNumber, String postcode, String city, String password, Collection<? extends GrantedAuthority> authorities) {
         this.id = id;
         this.name = name;
         this.surname = surname;
         this.username = username;
         this.email = email;
+        this.pesel = pesel;
+        this.street = street;
+        this.streetNumber = streetNumber;
+        this.localNumber = localNumber;
+        this.postcode = postcode;
+        this.city = city;
         this.password = password;
         this.authorities = authorities;
     }
 
     public static UserPrinciple build(User user){
         List<GrantedAuthority> authorities =
-                user.getRoles().stream().map(role -> new SimpleGrantedAuthority(role.getName().name())).collect(Collectors.toList());
+                user.getRoles().stream().map(
+                        role -> new SimpleGrantedAuthority(role.getName().name()))
+                        .collect(Collectors.toList());
         return new UserPrinciple(
                 user.getId(),
                 user.getName(),
                 user.getSurname(),
                 user.getUsername(),
+                user.getPesel(),
                 user.getEmail(),
+                user.getStreet(),
+                user.getStreetNumber(),
+                user.getLocalNumber(),
+                user.getPostcode(),
+                user.getCity(),
                 user.getPassword(),
                 authorities);
     }

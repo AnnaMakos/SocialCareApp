@@ -1,8 +1,6 @@
 package com.annamakos.socialcare.security.configuration;
 
-import com.annamakos.socialcare.model.User;
 import com.annamakos.socialcare.security.service.UserPrinciple;
-import com.annamakos.socialcare.security.service.UsersDetailsService;
 import io.jsonwebtoken.*;
 import lombok.Data;
 import org.slf4j.Logger;

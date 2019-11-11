@@ -1,9 +1,8 @@
 insert into roles (name) values ('ROLE_USER');
 insert into roles (name) values ('ROLE_ADMIN');
-insert into roles (name) values ('ROLE_DBA');
+insert into roles (name) values ('ROLE_OFFICIAL');
+insert into roles (name) values ('ROLE_APPLICANT');
 
-insert into users (username, email, password) values ('Ania', 'ania@ania.com', '12345');
 
-insert into users_roles (user_id, roles_id) values(1, 1);
-insert into users_roles (user_id, roles_id) values(1, 2);
-insert into users_roles (user_id, roles_id) values(1, 3);
+insert into institution (name, address, geox, geoy) values('socjal', 'marywilska 170 zalesie', 12.12, 130.130);
+insert into institution (name, address, geox, geoy) values('druga instytucyja', 'krolewska 14 05-210 Kraków', 100.20, 45.12);

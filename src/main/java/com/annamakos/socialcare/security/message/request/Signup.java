@@ -10,6 +10,12 @@ public class Signup {
     private String surname;
     private String username;
     private String email;
+    private String pesel;
+    private String street;
+    private String streetNumber;
+    private String localNumber;
+    private String postcode;
+    private String city;
     private String password;
     private Set<String> roles;
 }

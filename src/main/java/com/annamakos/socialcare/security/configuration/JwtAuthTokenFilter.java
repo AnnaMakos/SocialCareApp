@@ -2,6 +2,7 @@ package com.annamakos.socialcare.security.configuration;
 
 import com.annamakos.socialcare.security.service.UsersDetailsService;
 import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,18 +18,17 @@ import java.io.IOException;
 @NoArgsConstructor
 public class JwtAuthTokenFilter extends OncePerRequestFilter {
 
+    @Autowired
     private JwtProvider jwtProvider;
+    @Autowired
     private UsersDetailsService usersDetailsService;
-
-    public JwtAuthTokenFilter(JwtProvider jwtProvider, UsersDetailsService usersDetailsService){
-        this.jwtProvider = jwtProvider;
-        this.usersDetailsService = usersDetailsService;
-    }
 
     @Override
     protected void doFilterInternal(HttpServletRequest httpServletRequest,HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {
         String token = getJwt(httpServletRequest);
+        System.out.println(token);
         if(token != null && jwtProvider.validateToken(token)){
+            System.out.println("cokolwiek");
             String username = jwtProvider.getUsernameFromToken(token);
             UserDetails userDetails = usersDetailsService.loadUserByUsername(username);
             UsernamePasswordAuthenticationToken authenticationToken =

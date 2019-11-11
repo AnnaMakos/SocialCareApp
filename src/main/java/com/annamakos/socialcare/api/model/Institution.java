@@ -1,4 +1,4 @@
-package com.annamakos.socialcare.model;
+package com.annamakos.socialcare.api.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
