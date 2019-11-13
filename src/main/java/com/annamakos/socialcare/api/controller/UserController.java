@@ -33,9 +33,16 @@ public class UserController {
     }
 
     @PreAuthorize("hasRole('ADMIN')")
-    @RequestMapping(value = "/users/altertoofficial", method = RequestMethod.POST)
+    @RequestMapping(value = "/users/alterofficial/role", method = RequestMethod.PUT)
     public ResponseEntity<User> alterUserToOfficial(@RequestParam String username){
         User user = userService.alterUserToOfficial(username);
+        return new ResponseEntity<>(user, HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @RequestMapping(value = "/users/alterofficial/institution", method = RequestMethod.PUT)
+    public ResponseEntity<User> alterInstitutionForOfficial(@RequestParam String username, @RequestParam String institutionName){
+        User user = userService.alterInstitutionForOfficial(username, institutionName);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 

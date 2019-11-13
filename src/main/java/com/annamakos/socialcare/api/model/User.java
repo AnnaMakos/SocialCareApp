@@ -64,16 +64,16 @@ public class User {
     @ManyToOne
     private Institution institution;                    // for official
 
-    @OneToMany
+    @OneToMany(mappedBy = "receiver")
     private List<Message> receivedMessages;
 
-    @OneToMany
+    @OneToMany(mappedBy = "sender")
     private List<Message> sentMessages;
 
-    @OneToMany
+    @OneToMany(mappedBy = "official")
     private List<Application> receivedApplication;      // for official
 
-    @OneToMany
+    @OneToMany(mappedBy = "applicant")
     private List<Application> sentApplication;          // for applicant
 
     public User(@NotBlank String name, @NotBlank String surname, @NotBlank String username, @Email String email, @NotBlank String pesel, @NotBlank String street, @NotBlank String streetNumber, String localNumber, @NotBlank String postcode, @NotBlank String city, @NotBlank @Size(min = 5) String password) {

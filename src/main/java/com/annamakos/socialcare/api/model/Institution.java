@@ -31,7 +31,7 @@ public class Institution {
     @NotBlank
     private float geoY;
 
-    @OneToMany
+    @OneToMany(mappedBy = "institution")
     private Set<User> users;
 
     public Institution(@NotBlank String name, @NotBlank String address, @NotBlank float geoX, @NotBlank float geoY) {
