@@ -61,18 +61,22 @@ public class User {
     @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private Set<Role> roles;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.ALL})
     private Institution institution;                    // for official
 
+    @JsonIgnore
     @OneToMany(mappedBy = "receiver")
     private List<Message> receivedMessages;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "sender")
     private List<Message> sentMessages;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "official")
     private List<Application> receivedApplication;      // for official
 
+    @JsonIgnore
     @OneToMany(mappedBy = "applicant")
     private List<Application> sentApplication;          // for applicant
 

@@ -20,8 +20,8 @@ public class UserController {
 
     @PreAuthorize("hasRole('ADMIN')")
     @RequestMapping(value = "/users", method = RequestMethod.GET)
-    public ResponseEntity<List<User>> showUsers(){
-        List<User> userList =  this.userService.showUsers();
+    public ResponseEntity<List<User>> findAllUsers(){
+        List<User> userList =  this.userService.findAllUsers();
         return new ResponseEntity<>(userList, HttpStatus.OK);
     }
 

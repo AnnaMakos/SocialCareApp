@@ -55,9 +55,8 @@ public class UserService {
         return user;
     }
 
-    public List<User> showUsers() {
-        List<User> list = new ArrayList<>();
-        list = this.userRepository.findAll();
+    public List<User> findAllUsers() {
+        List<User> list = this.userRepository.findAll();
         return list;
     }
 
