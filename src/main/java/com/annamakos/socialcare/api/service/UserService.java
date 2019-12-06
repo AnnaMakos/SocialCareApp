@@ -1,5 +1,7 @@
 package com.annamakos.socialcare.api.service;
 
+import com.annamakos.socialcare.api.dto.UserBasicDTO;
+import com.annamakos.socialcare.api.dto.UserDTO;
 import com.annamakos.socialcare.api.model.Institution;
 import com.annamakos.socialcare.api.model.Role;
 import com.annamakos.socialcare.api.model.RoleName;
@@ -16,58 +18,92 @@ import java.util.*;
 @Service
 public class UserService {
     UserRepository userRepository;
-    RoleRepository roleRepository;
-    InstitutionRepository institutionRepository;
+    RoleService roleService;
+    InstitutionService institutionService;
 
-    public UserService(UserRepository userRepository, RoleRepository roleRepository, InstitutionRepository institutionRepository) {
+    public UserService(UserRepository userRepository, RoleService roleService, InstitutionService institutionService) {
         this.userRepository = userRepository;
-        this.roleRepository = roleRepository;
-        this.institutionRepository = institutionRepository;
+        this.roleService = roleService;
+        this.institutionService = institutionService;
     }
 
-    public User alterUserToOfficial(String username) {
 
-        User user = userRepository.findByUsername(username).orElseThrow(() ->
-                new UsernameNotFoundException("User not found"));
-        if (user != null) {
-            Set<Role> userRoles;
-            userRoles = user.getRoles();
-            Role role = roleRepository.findByName(RoleName.ROLE_OFFICIAL).orElseThrow(() ->
-                    new RuntimeException("Role not found"));
-            if (role != null) {
-                userRoles.add(role);
-                user.setRoles(userRoles);
-                userRepository.save(user);
-            }
-        }
-        return user;
+    public UserDTO alterUserRole(String username, String name) {
+        User user = findByUsername(username);
+        RoleName roleName = roleService.findRoleNameByName(name);
+        Role role = roleService.findRoleByName(roleName);
+        Set<Role> userRoles = user.getRoles();
+        userRoles.add(role);
+        user.setRoles(userRoles);
+        userRepository.save(user);
+        UserDTO userDTO = new UserDTO(user);
+        return userDTO;
     }
 
-    public User alterInstitutionForOfficial(String username, String institutionName) {
-        User user = userRepository.findByUsername(username).orElseThrow(() ->
-                new UsernameNotFoundException("User not found"));
-
-        if (user != null) {
-            user.setInstitution(institutionRepository.findByName(institutionName).orElseThrow(() ->
-                    new RuntimeException("Institution not found")));
-            userRepository.save(user);
-        }
-        return user;
+    public UserDTO alterUserInstitution(String username, int institutionId) {
+        User user = findByUsername(username);
+        user.getRoles().forEach(role -> {
+           if(role.getName().equals(RoleName.ROLE_OFFICIAL)){
+               user.setInstitution(institutionService.findInstitutionById(institutionId));
+               userRepository.save(user);
+           }
+        });
+        UserDTO userDTO = new UserDTO(user);
+        return userDTO;
     }
 
-    public List<User> findAllUsers() {
+    public List<UserDTO> findAllUsers() {
         List<User> list = this.userRepository.findAll();
-        return list;
+        List<UserDTO> usersDTO = new ArrayList<>();
+        list.forEach(user -> {
+            usersDTO.add(new UserDTO(user));
+        });
+        return usersDTO;
     }
 
-    public Set<User> findUsersByInstitution(int id) {
-        Set<User> users = new HashSet<>();
+    public List<UserDTO> findUsersByInstitution(int id) {
+        List<UserDTO> users = new ArrayList<>();
 
         userRepository.findAllByInstitutionId(id).forEach(user -> {
-            if (user.isPresent()) {
-                users.add(user.orElseThrow(() -> new UsernameNotFoundException("User not found")));
-            }
+            users.add(new UserDTO(user));
         });
         return users;
+    }
+
+    public List<UserBasicDTO> findOfficialsByInstitution(int id) {
+        List<UserBasicDTO> users = new ArrayList<>();
+
+        userRepository.findAllByInstitutionId(id).forEach(user -> {
+            users.add(new UserBasicDTO(user));
+        });
+        return users;
+    }
+
+    public User findByUsername(String username) {
+        User user = userRepository.findByUsername(username).orElseThrow(() ->
+                new UsernameNotFoundException("User not found"));
+        return user;
+    }
+
+    public List<UserDTO> findByRole(String name) {
+        RoleName roleName = roleService.findRoleNameByName(name);
+        List<User> users = userRepository.findAllByRolesName(roleName);
+        List<UserDTO> usersDTO = new ArrayList<>();
+        users.forEach(user -> {
+            usersDTO.add(new UserDTO(user));
+        });
+
+        return usersDTO;
+    }
+
+    public List<UserBasicDTO> findOfficials() {
+        RoleName roleName = roleService.findRoleNameByName("ROLE_OFFICIAL");
+        List<User> users = userRepository.findAllByRolesName(roleName);
+        List<UserBasicDTO> usersBasicDTO = new ArrayList<>();
+        users.forEach(user -> {
+            usersBasicDTO.add(new UserBasicDTO(user));
+        });
+
+        return usersBasicDTO;
     }
 }

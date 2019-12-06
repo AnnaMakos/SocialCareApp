@@ -1,9 +1,5 @@
 package com.annamakos.socialcare.api.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -29,7 +25,6 @@ public class Institution {
     @NotBlank
     private float geoY;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "institution")
     private Set<User> users;
 

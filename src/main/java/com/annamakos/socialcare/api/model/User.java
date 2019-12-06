@@ -1,6 +1,5 @@
 package com.annamakos.socialcare.api.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -53,7 +52,6 @@ public class User {
     @NotBlank
     private String city;
 
-    @JsonIgnore
     @NotBlank
     @Size(min = 5)
     private String password;
@@ -64,19 +62,15 @@ public class User {
     @ManyToOne(cascade = {CascadeType.ALL})
     private Institution institution;                    // for official
 
-    @JsonIgnore
     @OneToMany(mappedBy = "receiver")
     private List<Message> receivedMessages;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "sender")
     private List<Message> sentMessages;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "official")
     private List<Application> receivedApplication;      // for official
 
-    @JsonIgnore
     @OneToMany(mappedBy = "applicant")
     private List<Application> sentApplication;          // for applicant
 
