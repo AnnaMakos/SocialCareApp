@@ -19,8 +19,8 @@ public class Application {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Enumerated(EnumType.STRING)
-    private ApplicationName name;
+    @NotBlank
+    private String name;
 
     @NotBlank
     private Date postDate;
@@ -34,7 +34,7 @@ public class Application {
     @ManyToOne
     private User official;
 
-    public Application(ApplicationName name, @NotBlank Date postDate, Date considerDate) {
+    public Application(String name, @NotBlank Date postDate, Date considerDate) {
         this.name = name;
         this.postDate = postDate;
         this.considerDate = considerDate;

@@ -28,10 +28,10 @@ public class UserService {
     }
 
 
-    public UserDTO alterUserRole(String username, String name) {
+    public UserDTO alterUserRole(String username, String roleName) {
         User user = findByUsername(username);
-        RoleName roleName = roleService.findRoleNameByName(name);
-        Role role = roleService.findRoleByName(roleName);
+        RoleName roleName1 = roleService.findRoleNameByName(roleName);
+        Role role = roleService.findRoleByName(roleName1);
         Set<Role> userRoles = user.getRoles();
         userRoles.add(role);
         user.setRoles(userRoles);
