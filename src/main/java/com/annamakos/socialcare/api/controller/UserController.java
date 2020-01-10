@@ -5,6 +5,7 @@ import com.annamakos.socialcare.api.dto.UserDTO;
 import com.annamakos.socialcare.api.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -65,11 +66,10 @@ public class UserController {
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
-
-//    @PreAuthorize("hasRole('USER')")
-//    @RequestMapping(value = "/user/profile", method = RequestMethod.GET)
-//    public ResponseBody showMyProfile(){
-//        return this.userService.
-//    }
+    @RequestMapping(value = "/users/current", method = RequestMethod.GET)
+    public ResponseEntity<UserDTO> getCurrentUser(){
+        UserDTO userDTO = userService.getCurrentUser();
+        return new ResponseEntity<>(userDTO, HttpStatus.OK);
+    }
 
 }

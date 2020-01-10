@@ -60,6 +60,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/signup").permitAll()
                 .antMatchers("/signin").permitAll()
+                .antMatchers("/institutions").permitAll()
+                .antMatchers("/users/officials/institution").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .exceptionHandling().authenticationEntryPoint(jwtAuthEntryPoint)

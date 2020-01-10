@@ -10,6 +10,7 @@ import com.annamakos.socialcare.api.repository.InstitutionRepository;
 import com.annamakos.socialcare.api.repository.RoleRepository;
 import com.annamakos.socialcare.api.repository.UserRepository;
 import javassist.NotFoundException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -29,7 +30,8 @@ public class UserService {
 
 
     public UserDTO alterUserRole(String username, String roleName) {
-        User user = findByUsername(username);
+        User user = userRepository.findByUsername(username).orElseThrow(() ->
+                new UsernameNotFoundException("User not found"));;
         RoleName roleName1 = roleService.findRoleNameByName(roleName);
         Role role = roleService.findRoleByName(roleName1);
         Set<Role> userRoles = user.getRoles();
@@ -41,7 +43,8 @@ public class UserService {
     }
 
     public UserDTO alterUserInstitution(String username, int institutionId) {
-        User user = findByUsername(username);
+        User user = userRepository.findByUsername(username).orElseThrow(() ->
+                new UsernameNotFoundException("User not found"));;
         user.getRoles().forEach(role -> {
            if(role.getName().equals(RoleName.ROLE_OFFICIAL)){
                user.setInstitution(institutionService.findInstitutionById(institutionId));
@@ -79,10 +82,11 @@ public class UserService {
         return users;
     }
 
-    public User findByUsername(String username) {
+    public UserDTO findByUsername(String username) {
         User user = userRepository.findByUsername(username).orElseThrow(() ->
                 new UsernameNotFoundException("User not found"));
-        return user;
+        UserDTO userDTO = new UserDTO(user);
+        return userDTO;
     }
 
     public List<UserDTO> findByRole(String name) {
@@ -105,5 +109,13 @@ public class UserService {
         });
 
         return usersBasicDTO;
+    }
+
+    public UserDTO getCurrentUser(){
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userRepository.findByUsername(username).orElseThrow(() ->
+                new UsernameNotFoundException("User not found"));
+        UserDTO userDTO = new UserDTO(user);
+        return userDTO;
     }
 }
