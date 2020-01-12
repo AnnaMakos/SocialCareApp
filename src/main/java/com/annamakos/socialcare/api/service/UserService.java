@@ -44,8 +44,11 @@ public class UserService {
 
     public UserDTO alterUserInstitution(String username, int institutionId) {
         User user = userRepository.findByUsername(username).orElseThrow(() ->
-                new UsernameNotFoundException("User not found"));;
-        user.getRoles().forEach(role -> {
+                new UsernameNotFoundException("User not found"));
+
+        Set<Role> roles = user.getRoles();
+
+        roles.forEach(role -> {
            if(role.getName().equals(RoleName.ROLE_OFFICIAL)){
                user.setInstitution(institutionService.findInstitutionById(institutionId));
                userRepository.save(user);

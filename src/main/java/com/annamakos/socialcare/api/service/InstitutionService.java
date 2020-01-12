@@ -26,6 +26,12 @@ public class InstitutionService {
         return institution;
     }
 
+    public InstitutionDTO findInstitutionDTOById(int id) {
+        Institution institution = findInstitutionById(id);
+        InstitutionDTO institutionDTO = new InstitutionDTO(institution);
+        return institutionDTO;
+    }
+
     public List<InstitutionDTO> findAllInstitutions() {
         List<Institution> institutions = institutionRepository.findAll();
         List<InstitutionDTO> institutionsDTO = new ArrayList<>();
