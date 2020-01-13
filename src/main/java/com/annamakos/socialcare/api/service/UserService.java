@@ -51,9 +51,10 @@ public class UserService {
         roles.forEach(role -> {
            if(role.getName().equals(RoleName.ROLE_OFFICIAL)){
                user.setInstitution(institutionService.findInstitutionById(institutionId));
-               userRepository.save(user);
+
            }
         });
+        userRepository.save(user);
         UserDTO userDTO = new UserDTO(user);
         return userDTO;
     }
