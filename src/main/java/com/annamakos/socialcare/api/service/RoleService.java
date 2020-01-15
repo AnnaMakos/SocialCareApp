@@ -33,9 +33,6 @@ public class RoleService {
             case "ROLE_OFFICIAL":
                 roleName = RoleName.ROLE_OFFICIAL;
                 break;
-            case "ROLE_APPLICANT":
-                roleName = RoleName.ROLE_APPLICANT;
-                break;
         }
         return roleName;
     }

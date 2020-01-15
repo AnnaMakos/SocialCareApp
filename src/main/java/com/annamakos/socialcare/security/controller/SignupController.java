@@ -59,11 +59,6 @@ public class SignupController {
                             .orElseThrow(() -> new RuntimeException("Official role not found."));
                     roles.add(officialRole);
                     break;
-                case "applicant":
-                    Role applicantRole = roleRepository.findByName(RoleName.ROLE_APPLICANT)
-                            .orElseThrow(() -> new RuntimeException("Applicant role not found."));
-                    roles.add(applicantRole);
-                    break;
             }
 
         });

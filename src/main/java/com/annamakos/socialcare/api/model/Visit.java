@@ -9,34 +9,30 @@ import javax.validation.constraints.NotBlank;
 import java.util.Date;
 
 @Entity
-@Table(name = "application")
+@Table(name = "visit")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Application {
+public class Visit {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @NotBlank
-    private String name;
+    private Date visitDate;
 
     @NotBlank
-    private Date postDate;
-
-    @Column
-    private Date considerDate;
+    private boolean taken;
 
     @ManyToOne
-    private User applicant;
+    private User user;
 
     @ManyToOne
     private User official;
 
-    public Application(String name, @NotBlank Date postDate, Date considerDate) {
-        this.name = name;
-        this.postDate = postDate;
-        this.considerDate = considerDate;
+    public Visit(Date visitDate, boolean taken) {
+        this.visitDate = visitDate;
+        this.taken = taken;
     }
 }
