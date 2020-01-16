@@ -4,7 +4,10 @@ import com.annamakos.socialcare.api.model.Visit;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface VisitRepository extends JpaRepository<Visit, Long> {
 
+    Optional<Visit> findById(long id);
 }

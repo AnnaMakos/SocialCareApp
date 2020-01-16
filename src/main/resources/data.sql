@@ -15,7 +15,7 @@ declare day int;
 			insert into visit (visit_date, taken, official_id)
 			    values (
 			    date_add(current_date(), interval concat(day, ",", hour) day_hour),
-			    false,
+			    0,
 			    new.id
 			    );
 
@@ -36,7 +36,7 @@ insert into institution (name, address, geox, geoy) values('Pomagamy w centrum',
 insert into institution (name, address, geox, geoy) values('Pomoc dla potrzebujacych', 'Kresowa 1, 05-082 Stare Babice', 52.247963, 20.845952)^;
 
 insert into users (name, surname, username, pesel, street, street_number, local_number, postcode, city, email, password)
-values ('Anna', 'Makos', 'anja', '1231231231', 'Warska', '10', '3a', '05-110', 'Warszawa', 'aniamadra@omg.pl', '$2a$10$xbLlPEGMZ4h/bH08TNmnB.zn.XhcrboLHiAkpr4NF83fsM3fPOtKu')^;
+values ('Anna', 'Makos', 'anja', '1231231231', 'Warska', '10', '3a', '05-110', 'Warszawa', 'pointa96@gmail.com', '$2a$10$xbLlPEGMZ4h/bH08TNmnB.zn.XhcrboLHiAkpr4NF83fsM3fPOtKu')^;
 
 insert into users (name, surname, username, pesel, street, street_number, postcode, city, email, password)
 values ('Konrad', 'Zagajnik', 'kondar', '1231230980', 'Lekowa', '220', '06-120', 'Zalezie', 'konradbozy@com.pl', '$2a$10$dNuurHYoHJv/YcT4zDBSm.hc.WEXMXB6g75jLTm6qS6Eca8/XrQtO')^;

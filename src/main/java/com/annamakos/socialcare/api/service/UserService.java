@@ -93,6 +93,12 @@ public class UserService {
         return userDTO;
     }
 
+    public User findByUsername2(String username) {
+        User user = userRepository.findByUsername(username).orElseThrow(() ->
+                new UsernameNotFoundException("User not found"));
+        return user;
+    }
+
     public List<UserDTO> findByRole(String name) {
         RoleName roleName = roleService.findRoleNameByName(name);
         List<User> users = userRepository.findAllByRolesName(roleName);

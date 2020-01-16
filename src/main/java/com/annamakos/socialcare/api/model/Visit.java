@@ -19,10 +19,10 @@ public class Visit {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @NotBlank
+    @Column
     private Date visitDate;
 
-    @NotBlank
+    @Column
     private boolean taken;
 
     @ManyToOne

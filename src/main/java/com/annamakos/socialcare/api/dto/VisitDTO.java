@@ -15,16 +15,16 @@ public class VisitDTO {
     private long id;
     private Date visitDate;
     private boolean taken;
-    private User user;
-    private User official;
+    private UserDTO user;
+    private UserDTO official;
 
     public VisitDTO(Visit visit){
         this.id = visit.getId();
         this.visitDate = visit.getVisitDate();
         this.taken = visit.isTaken();
-        this.official = visit.getOfficial();
+        this.official = new UserDTO(visit.getOfficial());
         if(visit.getUser() != null) {
-            this.user = visit.getUser();
+            this.user = new UserDTO(visit.getUser());
         } else {
             this.user = null;
         }
