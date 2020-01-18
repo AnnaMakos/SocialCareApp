@@ -18,7 +18,7 @@ public class VisitService {
     private UserService userService;
     private MailService mailService;
 
-    public VisitService(VisitRepository visitRepository, UserService userService, MailService mailService){
+    public VisitService(VisitRepository visitRepository, UserService userService, MailService mailService) {
         this.visitRepository = visitRepository;
         this.userService = userService;
         this.mailService = mailService;
@@ -33,14 +33,14 @@ public class VisitService {
         return visitsDTO;
     }
 
-    public VisitDTO findById(long id){
+    public VisitDTO findById(long id) {
         Visit visit = visitRepository.findById(id).orElseThrow(() ->
                 new UsernameNotFoundException("User not found"));
         VisitDTO visitDTO = new VisitDTO(visit);
         return visitDTO;
     }
 
-    public VisitDTO alterVisitToTaken(String username, long visitId){
+    public VisitDTO alterVisitToTaken(String username, long visitId) {
         User user = userService.findByUsername2(username);
         Visit visit = visitRepository.findById(visitId).orElseThrow(() ->
                 new UsernameNotFoundException("User not found"));
@@ -52,6 +52,16 @@ public class VisitService {
         mailService.sendVisitConfirmation(visitDTO);
 
         return visitDTO;
+    }
+
+    public List<VisitDTO> findAllByUserName(String name) {
+        List<Visit> visits = visitRepository.findAllByUserUsername(name);
+        List<VisitDTO> visitsDTO = new ArrayList<>();
+        visits.forEach(visit -> {
+            visitsDTO.add(new VisitDTO(visit));
+        });
+
+        return visitsDTO;
     }
 
 
