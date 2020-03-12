@@ -74,6 +74,13 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Visit> visitApplicant;          // for applicant
 
+    @OneToMany(mappedBy = "official")
+    private List<ApplicationForm> applicationFormOfficial;      // for official
+
+    @OneToMany(mappedBy = "user")
+    private List<ApplicationForm> applicationFormUser;          // for applicant
+
+
     public User(@NotBlank String name, @NotBlank String surname, @NotBlank String username, @Email String email, @NotBlank String pesel, @NotBlank String street, @NotBlank String streetNumber, String localNumber, @NotBlank String postcode, @NotBlank String city, @NotBlank @Size(min = 5) String password) {
         this.name = name;
         this.surname = surname;
