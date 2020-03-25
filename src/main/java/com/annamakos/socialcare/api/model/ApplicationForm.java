@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.List;
 
 @Entity
 @Table(name = "application_form")
@@ -19,10 +20,10 @@ public class ApplicationForm {
     private long id;
 
     @Enumerated(EnumType.STRING)
-    private ApplicationStatus status;
+    private ApplicationStatus applicationStatus;
 
     @NotBlank
-    private String condition;
+    private String maritalStatus;
 
     @NotBlank
     private String citizenship;
@@ -33,10 +34,12 @@ public class ApplicationForm {
     @Column
     private String comments;
 
+    @OneToMany(mappedBy = "appForm")
+    private List<ChildForm> children;
+
     @ManyToOne
-    private User user;
+    private User applicant;
 
     @ManyToOne
     private User official;
-
 }

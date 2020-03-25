@@ -2,13 +2,11 @@ package com.annamakos.socialcare.api.dto;
 
 import com.annamakos.socialcare.api.model.ApplicationForm;
 import com.annamakos.socialcare.api.model.ApplicationStatus;
-import com.annamakos.socialcare.api.model.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -23,23 +21,30 @@ public class ApplicationFormDTO {
     private String comments;
     private UserDTO user;
     private UserDTO official;
+    private List<ChildFormDTO> children;
 
     public ApplicationFormDTO(ApplicationForm app) {
         this.id = app.getId();
-        this.status = app.getStatus();
-        this.condition = app.getCondition();
+        this.status = app.getApplicationStatus();
+        this.condition = app.getMaritalStatus();
         this.citizenship = app.getCitizenship();
         this.phone = app.getPhone();
-        if(app.getComments() != null){
+        if (app.getComments() != null) {
             this.comments = comments;
         } else {
             this.comments = null;
         }
-        this.user = new UserDTO(app.getUser());
-        if(app.getOfficial() != null){
-            this.official = new UserDTO(app.getUser());
+        this.user = new UserDTO(app.getApplicant());
+        if (app.getOfficial() != null) {
+            this.official = new UserDTO(app.getApplicant());
         } else {
             this.official = null;
+        }
+        if (app.getChildren() != null) {
+            int size = app.getChildren().size();
+            for (int i = 0; i < size; i++) {
+                children.add(new ChildFormDTO(app.getChildren().get(i)));
+            }
         }
     }
 }

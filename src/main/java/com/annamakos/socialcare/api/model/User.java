@@ -77,7 +77,7 @@ public class User {
     @OneToMany(mappedBy = "official")
     private List<ApplicationForm> applicationFormOfficial;      // for official
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "applicant")
     private List<ApplicationForm> applicationFormUser;          // for applicant
 
 
