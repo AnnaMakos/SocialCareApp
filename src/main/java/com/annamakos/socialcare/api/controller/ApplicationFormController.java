@@ -2,16 +2,12 @@ package com.annamakos.socialcare.api.controller;
 
 import com.annamakos.socialcare.api.dto.ApplicationFormBasicDTO;
 import com.annamakos.socialcare.api.dto.ApplicationFormDTO;
-import com.annamakos.socialcare.api.model.ApplicationForm;
-import com.annamakos.socialcare.api.model.ApplicationStatus;
-import com.annamakos.socialcare.api.model.User;
 import com.annamakos.socialcare.api.service.ApplicationFormService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 public class ApplicationFormController {
@@ -19,6 +15,12 @@ public class ApplicationFormController {
 
     public ApplicationFormController(ApplicationFormService applicationFormService) {
         this.applicationFormService = applicationFormService;
+    }
+
+    @RequestMapping(value =  "applicationform/show/{username}", method = RequestMethod.GET)
+    public ResponseEntity<List<ApplicationFormDTO>> findAllByApplicantUsername(@PathVariable String username){
+        List<ApplicationFormDTO> list = applicationFormService.findAllByApplicantUsername(username);
+        return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
     @RequestMapping(value = "applicationform/addform", method = RequestMethod.POST)

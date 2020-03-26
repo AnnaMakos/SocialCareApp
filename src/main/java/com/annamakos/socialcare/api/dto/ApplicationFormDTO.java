@@ -1,7 +1,6 @@
 package com.annamakos.socialcare.api.dto;
 
 import com.annamakos.socialcare.api.model.ApplicationForm;
-import com.annamakos.socialcare.api.model.ApplicationStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,7 +13,7 @@ import java.util.List;
 public class ApplicationFormDTO {
 
     private long id;
-    private ApplicationStatus status;
+    private String status;
     private String condition;
     private String citizenship;
     private String phone;
@@ -30,7 +29,7 @@ public class ApplicationFormDTO {
         this.citizenship = app.getCitizenship();
         this.phone = app.getPhone();
         if (app.getComments() != null) {
-            this.comments = comments;
+            this.comments = app.getComments();
         } else {
             this.comments = null;
         }
@@ -43,8 +42,13 @@ public class ApplicationFormDTO {
         if (app.getChildren() != null) {
             int size = app.getChildren().size();
             for (int i = 0; i < size; i++) {
-                children.add(new ChildFormDTO(app.getChildren().get(i)));
+                System.out.println("jestem w petli hihihi");
+                //this.children.add(new ChildFormDTO(app.getChildren().get(i)));
             }
+        } else {
+            this.children = null;
+            System.out.println("jestem w elsie loliiiiik");
         }
+
     }
 }

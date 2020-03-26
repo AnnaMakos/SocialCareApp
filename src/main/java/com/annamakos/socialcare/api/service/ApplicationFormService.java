@@ -26,7 +26,7 @@ public class ApplicationFormService {
         this.userService = userService;
     }
 
-    public List<ApplicationFormDTO> findByApplicantUsername(String name) {
+    public List<ApplicationFormDTO> findAllByApplicantUsername(String name) {
         List<ApplicationForm> forms = applicationFormRepository.findAllByApplicantUsername(name);
         List<ApplicationFormDTO> formsDTO = new ArrayList<>();
         forms.forEach(form -> {

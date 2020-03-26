@@ -1,6 +1,7 @@
 package com.annamakos.socialcare.api.service;
 
 import com.annamakos.socialcare.api.dto.ApplicationFormDTO;
+import com.annamakos.socialcare.api.dto.ChildFormBasicDTO;
 import com.annamakos.socialcare.api.dto.ChildFormDTO;
 import com.annamakos.socialcare.api.dto.UserDTO;
 import com.annamakos.socialcare.api.model.ApplicationForm;
@@ -29,20 +30,14 @@ public class ChildFormService {
         return children;
     }
 
-    public ChildFormDTO addChildForm(
-            String name,
-            String surname,
-            String PESEL,
-            String citizenship,
-            ApplicationFormDTO applicationFormDTO
-    ) {
+    public ChildFormDTO addChildForm(ChildFormBasicDTO childFormBasicDTO, int appFormId) {
 
-        ApplicationForm appForm = applicationFormService.findById(applicationFormDTO.getId());
+        ApplicationForm appForm = applicationFormService.findById(appFormId);
         ChildForm childForm = new ChildForm(
-                name,
-                surname,
-                PESEL,
-                citizenship,
+                childFormBasicDTO.getName(),
+                childFormBasicDTO.getSurname(),
+                childFormBasicDTO.getPesel(),
+                childFormBasicDTO.getCitizenship(),
                 appForm
         );
         childFormRepository.save(childForm);

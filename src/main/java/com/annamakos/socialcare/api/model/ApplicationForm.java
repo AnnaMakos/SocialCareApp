@@ -19,8 +19,8 @@ public class ApplicationForm {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Enumerated(EnumType.STRING)
-    private ApplicationStatus applicationStatus;
+    @NotBlank
+    private String applicationStatus;
 
     @NotBlank
     private String maritalStatus;
@@ -44,7 +44,7 @@ public class ApplicationForm {
     private User official;
 
     public ApplicationForm(
-            ApplicationStatus applicationStatus,
+            String applicationStatus,
             String maritalStatus,
             String citizenship,
             String phone,

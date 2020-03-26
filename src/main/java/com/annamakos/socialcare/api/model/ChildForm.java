@@ -25,7 +25,7 @@ public class ChildForm {
     private String surname;
 
     @NotBlank
-    private String PESEL;
+    private String pesel;
 
     @NotBlank
     private String citizenship;
@@ -36,13 +36,13 @@ public class ChildForm {
     public ChildForm(
             String name,
             String surname,
-            String PESEL,
+            String pesel,
             String citizenship,
             ApplicationForm applicationForm
     ) {
         this.name = name;
         this.surname = surname;
-        this.PESEL = PESEL;
+        this.pesel = pesel;
         this.citizenship = citizenship;
         this.appForm = applicationForm;
     }

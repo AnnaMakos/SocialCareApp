@@ -1,7 +1,6 @@
 package com.annamakos.socialcare.api.dto;
 
 
-import com.annamakos.socialcare.api.model.ApplicationStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ApplicationFormBasicDTO {
 
-    ApplicationStatus applicationStatus;
+    String applicationStatus;
     String maritalStatus;
     String citizenship;
     String phone;

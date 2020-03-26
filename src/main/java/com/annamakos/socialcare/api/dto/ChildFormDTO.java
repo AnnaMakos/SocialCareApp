@@ -15,21 +15,15 @@ public class ChildFormDTO {
     private int id;
     private String name;
     private String surname;
-    private String PESEL;
+    private String pesel;
     private String citizenship;
-    private ApplicationForm applicationForm;
 
     public ChildFormDTO(ChildForm child) {
         this.id = child.getId();
         this.name = child.getName();
         this.surname = child.getSurname();
-        this.PESEL = child.getPESEL();
+        this.pesel = child.getPesel();
         this.citizenship = child.getCitizenship();
-        if (child.getAppForm() != null) {
-            this.applicationForm = child.getAppForm();
-        } else {
-            this.applicationForm = null;
-        }
 
     }
 }
