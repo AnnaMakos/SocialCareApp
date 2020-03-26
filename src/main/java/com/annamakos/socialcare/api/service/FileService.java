@@ -4,7 +4,6 @@ import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.annamakos.socialcare.api.model.Application;
-import com.annamakos.socialcare.api.repository.ApplicationRepository;
 import com.annamakos.socialcare.aws.AWSClient;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;
@@ -49,7 +48,7 @@ public class FileService {
 
     public void uploadApplicationFile(MultipartFile multipartFile, long id) {
         String path = "";
-        Application application = applicationService.findApplicationById(id);
+        Application application = applicationService.findById(id);
 
         try {
             File file = convertMultipartToFile(multipartFile);

@@ -42,4 +42,20 @@ public class ApplicationForm {
 
     @ManyToOne
     private User official;
+
+    public ApplicationForm(
+            ApplicationStatus applicationStatus,
+            String maritalStatus,
+            String citizenship,
+            String phone,
+            String comments,
+            User applicant
+    ) {
+        this.applicationStatus = applicationStatus;
+        this.maritalStatus = maritalStatus;
+        this.citizenship = citizenship;
+        this.phone = phone;
+        this.comments = comments;
+        this.applicant = applicant;
+    }
 }

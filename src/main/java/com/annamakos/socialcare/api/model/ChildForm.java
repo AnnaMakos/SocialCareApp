@@ -27,10 +27,23 @@ public class ChildForm {
     @NotBlank
     private String PESEL;
 
-    @Column
+    @NotBlank
     private String citizenship;
 
     @ManyToOne
     private ApplicationForm appForm;
 
+    public ChildForm(
+            String name,
+            String surname,
+            String PESEL,
+            String citizenship,
+            ApplicationForm applicationForm
+    ) {
+        this.name = name;
+        this.surname = surname;
+        this.PESEL = PESEL;
+        this.citizenship = citizenship;
+        this.appForm = applicationForm;
+    }
 }

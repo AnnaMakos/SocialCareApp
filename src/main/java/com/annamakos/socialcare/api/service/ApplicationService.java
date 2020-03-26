@@ -40,7 +40,7 @@ public class ApplicationService {
         return applicationDTOs;
     }
 
-    public Application findApplicationById(long id) {
+    public Application findById(long id) {
         Application application = applicationRepository.findById(id).orElseThrow(
                 () -> new NoSuchElementException("Wniosek nie znaleziony")
         );
