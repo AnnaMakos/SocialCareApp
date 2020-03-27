@@ -13,8 +13,8 @@ import java.util.List;
 public class ApplicationFormDTO {
 
     private long id;
-    private String status;
-    private String condition;
+    private String applicationStatus;
+    private String maritalStatus;
     private String citizenship;
     private String phone;
     private String comments;
@@ -24,8 +24,8 @@ public class ApplicationFormDTO {
 
     public ApplicationFormDTO(ApplicationForm app) {
         this.id = app.getId();
-        this.status = app.getApplicationStatus();
-        this.condition = app.getMaritalStatus();
+        this.applicationStatus = app.getApplicationStatus();
+        this.maritalStatus = app.getMaritalStatus();
         this.citizenship = app.getCitizenship();
         this.phone = app.getPhone();
         if (app.getComments() != null) {
@@ -41,9 +41,12 @@ public class ApplicationFormDTO {
         }
         if (app.getChildren() != null) {
             int size = app.getChildren().size();
+            System.out.println("tyle mam dzieci: " + size);
             for (int i = 0; i < size; i++) {
                 System.out.println("jestem w petli hihihi");
-                //this.children.add(new ChildFormDTO(app.getChildren().get(i)));
+                ChildFormDTO childFormDTO = new ChildFormDTO(app.getChildren().get(i));
+             //   this.children.add(new ChildFormDTO(app.getChildren().get(i)));
+                this.children.add(childFormDTO);
             }
         } else {
             this.children = null;

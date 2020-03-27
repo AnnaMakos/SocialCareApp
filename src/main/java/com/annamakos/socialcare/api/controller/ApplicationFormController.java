@@ -29,9 +29,9 @@ public class ApplicationFormController {
         return new ResponseEntity<>(applicationFormDTO, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "applicationform/saveform", method = RequestMethod.PUT)
-    public ResponseEntity<ApplicationFormDTO> alterApplicationFormAddChildren(@RequestBody ApplicationFormDTO applicationFormDTO) {
-        ApplicationFormDTO appFormDTO = this.applicationFormService.alterApplicationFormAddChildren(applicationFormDTO);
+    @RequestMapping(value = "applicationform/saveform/{id}", method = RequestMethod.PUT)
+    public ResponseEntity<ApplicationFormDTO> alterApplicationFormAddChildren(@PathVariable int id) {
+        ApplicationFormDTO appFormDTO = this.applicationFormService.alterApplicationFormAddChildren(id);
         return new ResponseEntity<>(appFormDTO, HttpStatus.OK);
     }
 }
