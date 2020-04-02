@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -42,12 +43,14 @@ public class ApplicationFormDTO {
         if (app.getChildren() != null) {
             int size = app.getChildren().size();
             System.out.println("tyle mam dzieci: " + size);
-            for (int i = 0; i < size; i++) {
-                System.out.println("jestem w petli hihihi");
-                ChildFormDTO childFormDTO = new ChildFormDTO(app.getChildren().get(i));
-             //   this.children.add(new ChildFormDTO(app.getChildren().get(i)));
-                this.children.add(childFormDTO);
+            List<ChildFormDTO> childrenDTO = new ArrayList<>();
+
+            for(int i = 0; i < size; i++) {
+                childrenDTO.add(new ChildFormDTO(app.getChildren().get(i)));
             }
+            this.children = childrenDTO;
+
+//            }
         } else {
             this.children = null;
             System.out.println("jestem w elsie loliiiiik");

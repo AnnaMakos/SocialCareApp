@@ -65,13 +65,5 @@ public class ApplicationFormService {
         return new ApplicationFormDTO(app);
     }
 
-    public ApplicationFormDTO alterApplicationFormAddChildren(int appFormId) {
-        ApplicationForm appForm = findById(appFormId);
-        List<ChildForm> children = childFormRepository.findAllByAppFormId(appFormId);
-        appForm.setChildren(children);
-        applicationFormRepository.save(appForm);
-
-        return new ApplicationFormDTO(appForm);
-    }
 
 }
