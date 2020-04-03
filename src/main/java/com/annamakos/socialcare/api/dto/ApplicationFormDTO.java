@@ -23,6 +23,7 @@ public class ApplicationFormDTO {
     private UserDTO official;
     private List<ChildFormDTO> children;
 
+
     public ApplicationFormDTO(ApplicationForm app) {
         this.id = app.getId();
         this.applicationStatus = app.getApplicationStatus();
