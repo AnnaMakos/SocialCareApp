@@ -57,6 +57,13 @@ public class ApplicationFormService {
         return appForm;
     }
 
+    public ApplicationFormDTO findDTOById(long id) {
+        ApplicationForm appForm = applicationFormRepository.findById(id).orElseThrow(() ->
+                new ApplicationDoesNotExistException("ApplicationForm does not exist"));
+        ApplicationFormDTO appFormDTO = new ApplicationFormDTO(appForm);
+        return appFormDTO;
+    }
+
     public ApplicationFormDTO addApplicationFormWithoutChildren(ApplicationFormBasicDTO appDTO) {
         String comment;
         if (appDTO.getComments() == null) {
@@ -87,6 +94,14 @@ public class ApplicationFormService {
         app.setOfficial(official);
         applicationFormRepository.save(app);
         return new ApplicationFormDTO(app);
+    }
+
+    public ApplicationFormDTO alterApplicationStatus(String status, long id) {
+        ApplicationForm appForm = this.findById(id);
+        appForm.setApplicationStatus(status);
+        this.applicationFormRepository.save(appForm);
+        ApplicationFormDTO appFormDTO = new ApplicationFormDTO(appForm);
+        return appFormDTO;
     }
 
 }

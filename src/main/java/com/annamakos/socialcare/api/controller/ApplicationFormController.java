@@ -24,6 +24,12 @@ public class ApplicationFormController {
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
+    @RequestMapping(value = "applicationform/showofficial/{username}", method = RequestMethod.GET)
+    public ResponseEntity<List<ApplicationFormDTO>> findAllByOfficialUsername(@PathVariable String username) {
+        List<ApplicationFormDTO> list = applicationFormService.findAllByOfficialUsername(username);
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+
     @RequestMapping(value = "applicationform/addform", method = RequestMethod.POST)
     public ResponseEntity<ApplicationFormDTO> addApplicationFormWithoutChildren(@RequestBody ApplicationFormBasicDTO app) {
         ApplicationFormDTO applicationFormDTO = this.applicationFormService.addApplicationFormWithoutChildren(app);
@@ -44,4 +50,18 @@ public class ApplicationFormController {
         System.out.println("jestem w kontrollerze. Id wniosku: " + id + ", username: " + username);
         return new ResponseEntity<>(app, HttpStatus.OK);
     }
+
+    @RequestMapping(value = "applicationform/{id}", method = RequestMethod.GET)
+    public ResponseEntity<ApplicationFormDTO> findApplicationById(@PathVariable long id) {
+        ApplicationFormDTO app = applicationFormService.findDTOById(id);
+        return new ResponseEntity<>(app, HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasRole('OFFICIAL')")
+    @RequestMapping(value="/applicationform/alterstatus/{status}/{id}", method = RequestMethod.PUT)
+    public ResponseEntity<ApplicationFormDTO> alterApplicationStatus(@PathVariable String status, @PathVariable long id) {
+        ApplicationFormDTO app = this.applicationFormService.alterApplicationStatus(status, id);
+        return new ResponseEntity<>(app, HttpStatus.OK);
+    }
+
 }
