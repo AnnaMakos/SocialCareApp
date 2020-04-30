@@ -15,5 +15,7 @@ public interface ApplicationFormRepository extends JpaRepository<ApplicationForm
 
     Optional<ApplicationForm> findById(long id);
 
+    List<ApplicationForm> findAllByOfficialUsername(String username);
+
 
 }

@@ -27,7 +27,7 @@ public class ChildForm {
     @NotBlank
     private String pesel;
 
-    @NotBlank
+    @Column
     private String citizenship;
 
     @ManyToOne

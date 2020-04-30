@@ -5,6 +5,7 @@ import com.annamakos.socialcare.api.dto.ApplicationFormDTO;
 import com.annamakos.socialcare.api.service.ApplicationFormService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,8 +18,8 @@ public class ApplicationFormController {
         this.applicationFormService = applicationFormService;
     }
 
-    @RequestMapping(value =  "applicationform/show/{username}", method = RequestMethod.GET)
-    public ResponseEntity<List<ApplicationFormDTO>> findAllByApplicantUsername(@PathVariable String username){
+    @RequestMapping(value = "applicationform/show/{username}", method = RequestMethod.GET)
+    public ResponseEntity<List<ApplicationFormDTO>> findAllByApplicantUsername(@PathVariable String username) {
         List<ApplicationFormDTO> list = applicationFormService.findAllByApplicantUsername(username);
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
@@ -29,9 +30,18 @@ public class ApplicationFormController {
         return new ResponseEntity<>(applicationFormDTO, HttpStatus.OK);
     }
 
-//    @RequestMapping(value = "applicationform/saveform/{id}", method = RequestMethod.PUT)
-//    public ResponseEntity<ApplicationFormDTO> alterApplicationFormAddChildren(@PathVariable int id) {
-//        ApplicationFormDTO appFormDTO = this.applicationFormService.alterApplicationFormAddChildren(id);
-//        return new ResponseEntity<>(appFormDTO, HttpStatus.OK);
-//    }
+    @PreAuthorize("hasRole('ADMIN')")
+    @RequestMapping(value = "applicationform/show", method = RequestMethod.GET)
+    public ResponseEntity<List<ApplicationFormDTO>> findAll() {
+        List<ApplicationFormDTO> list = applicationFormService.findAll();
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @RequestMapping(value = "/applicationform/addofficial/{id}/{username}", method = RequestMethod.PUT)
+    public ResponseEntity<ApplicationFormDTO> addOfficialToForm(@PathVariable long id, @PathVariable String username) {
+        ApplicationFormDTO app = applicationFormService.addOfficialToForm(username, id);
+        System.out.println("jestem w kontrollerze. Id wniosku: " + id + ", username: " + username);
+        return new ResponseEntity<>(app, HttpStatus.OK);
+    }
 }

@@ -26,11 +26,27 @@ public class ApplicationFormService {
         this.userService = userService;
     }
 
+    public List<ApplicationFormDTO> findAll() {
+        List<ApplicationForm> forms = applicationFormRepository.findAll();
+        List<ApplicationFormDTO> formsDTO = new ArrayList<>();
+        forms.forEach(form -> formsDTO.add(new ApplicationFormDTO(form)));
+        return formsDTO;
+    }
+
     public List<ApplicationFormDTO> findAllByApplicantUsername(String name) {
         List<ApplicationForm> forms = applicationFormRepository.findAllByApplicantUsername(name);
         List<ApplicationFormDTO> formsDTO = new ArrayList<>();
         forms.forEach(form -> {
             formsDTO.add((new ApplicationFormDTO(form)));
+        });
+        return formsDTO;
+    }
+
+    public List<ApplicationFormDTO> findAllByOfficialUsername(String username) {
+        List<ApplicationForm> forms = this.applicationFormRepository.findAllByOfficialUsername(username);
+        List<ApplicationFormDTO> formsDTO = new ArrayList<>();
+        forms.forEach(form -> {
+            formsDTO.add(new ApplicationFormDTO(form));
         });
         return formsDTO;
     }
@@ -65,6 +81,12 @@ public class ApplicationFormService {
         return new ApplicationFormDTO(app);
     }
 
-
+    public ApplicationFormDTO addOfficialToForm(String officialUsername, long formId) {
+        ApplicationForm app = this.findById(formId);
+        User official = userService.findByUsername2(officialUsername);
+        app.setOfficial(official);
+        applicationFormRepository.save(app);
+        return new ApplicationFormDTO(app);
+    }
 
 }
